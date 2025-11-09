@@ -3,22 +3,17 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_create_user():
+def test_product_creation():
     response = client.post(
-        "/users/",
-        json={
-            "name": "Ali",
-            "age": 30,
-            "email": "ali@gmail.com"
+        "/products/",
+        json = {
+            "name": "Test Product",
+            "price": 20.44,
+            "description": "Random Description"
         }
     )
-    # ✅ Check response status
     assert response.status_code == 201
-
-    # ✅ Parse response data
     data = response.json()
-
-    # ✅ Validate returned fields
-    assert data["name"] == "Ali"
-    assert data["age"] == 30
-    assert data["email"] == "ali@gmail.com"
+    assert data["name"] == "Test Product"
+    assert data["price"] == 20.44
+    assert data["description"] == "Random Description"
